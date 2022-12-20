@@ -15,7 +15,7 @@ Scroll down to see the **Instructions** on how to launch this project properly.
 1. Clone this repository, cd into it
 
 ```
-git clone https://github.com/hatredholder/Flask-Weather-App.git
+git clone https://github.com/poorinutk/WeatherApp.git
 cd Flask-Weather-App
 ```    
 
