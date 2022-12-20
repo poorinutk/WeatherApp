@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather App</title>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+    <style>
+        *, body{
+            margin: 0;
+            padding: 0;
+
+        }
+
+        body{
+            background-color: white;
+            font-family: 'Fira Sans', sans-serif;
+
+        }
+
+        .main-menu{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70px;
+            height: 100vh;
+            
+            background-color: #818181;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0px 0px 20px #d4d4d4;
+            transition: .3s ease;
+        }
+
+        .main-menu:hover{
+            width: 200px;
+            /* overflow-y: scroll; */
+        }
+
+        .main-menu .menu-item{
+            padding: 10px;
+            color: #d4d4d4;
+        }
+
+        .main-menu .menu-item:hover{
+            background-color: rgb(58, 57, 57);
+            cursor: pointer;
+        }
+
+        .main-menu .menu-item .fa{
+            font-size: 25px;
+            width: 60px;
+            padding: 10px;
+
+        }
+
+        .menu-item:hover >.fa{
+            color: rgb(138, 138, 143);
+        }
+        .cloud{
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="hero is-warning">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title" style="text-align: center;">
+                    <!-- <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span> -->
+                    How's the weather today?
+                </h1>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <form method="POST">
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                <input class="input" name="city" type="text" placeholder="City Name">
+                            </div>
+                            <div class="control">
+                                <button class="button is-warning" style="font-weight: 700;">
+                                    Add City
+                                </button>
+                            </div>
+                        </div>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                {% set message_class = 'is-success' %}
+
+                                {% if category == 'error' %}
+                                    {% set message_class = 'is-danger' %}
+                                {% endif %}
+                                <div class="notification {{ message_class }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- add city -->
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    {% for weather in weather_data %}
+                        <div class="box">
+                            <article class="media">
+                                <div class="media-left">
+                                    <figure class="image is-50x50">
+                                        <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="Image">
+                                    </figure>
+                                </div>
+                                
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <span class="title">{{ weather.city.capitalize() }}</span>
+                                            <span class="subtitle">{{ weather.temperature }}°C</span>
+                                            <br> 
+                                            {{ weather.description }}
+                                            <br>
+                                            <span class="cloud">{{ weather.cloud }}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="media-right">
+                                    <a href="{{ url_for('delete_city', name=weather.city) }}">
+                                        <button class="delete"></button>
+                                    </a>
+                                </div>
+                            </article>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#">Weather</a>
+            <a href="#">Calendar</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+    </div> -->
+
+    <div class="main-menu">
+        <ul>
+            <a href="#"><li class="menu-item"><i class="fa fa-soundcloud"></i>Weather</li></a>
+            <a href="{{url_for('calendar')}}"><li class="menu-item"><i class="fa fa-calendar"></i>Calendar</li></a>
+        </ul>
+    </div>
+    <script>
+        // function openNav() {
+        //     document.getElementById("mySidenav").style.width = "250px";
+        // }
+        
+        // function closeNav() {
+        //     document.getElementById("mySidenav").style.width = "0";
+        // }
+    </script>
+</body>
+
+</html>

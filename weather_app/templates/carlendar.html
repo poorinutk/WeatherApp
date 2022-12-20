@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Quicksand", sans-serif;
+
+            }
+
+            html{
+            font-size: 62.5%;
+
+            }
+
+            .container{
+            width: 100%;
+            height: 100vh;
+            background-color: #12121f;
+            color: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            }
+
+            .calendar{
+            width: 45rem;
+            height: 52rem;
+            background-color: #222227;
+            box-shadow: 0.5rem 3rem rgba(0, 0, 0, 0.4);
+
+            }
+
+            .mount{
+            width: 100%;
+            height: 12rem;
+            background-color: #167e56;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            text-align: center;
+            text-shadow: 0.3rem .5rem rgba(0, 0, 0, 0.5);
+
+            }
+
+            .mount i{
+            font-size: 2.5rem;
+            cursor: pointer;
+
+            }
+
+            .mount h1{
+            font-size: 3rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            margin-bottom: 1rem;
+            }
+
+            .mount p{
+            font-size: 1.6rem;
+            }
+
+            .weekdays{
+            width: 100%;
+            height: 5rem;
+            padding: 0 0.4rem;
+            display: flex;
+            align-items: center;
+            }
+
+            .weekdays div{
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: .1rem;
+            width: calc(44.2rem/7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-shadow: 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+
+            }
+
+            .days{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0.2rem;
+            }
+
+            .days div{
+            font-size: 1.4rem;
+            margin: 0.3rem;
+            width: calc(40.2rem/7);
+            height: 5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+            transition: backgound-color 0.2s;
+            }
+
+            .days div:hover:not(.today){
+            background-color: #262626;
+            border: 0.2rem solid#777;
+            cursor: pointer;
+            }
+
+            .prev-date,.next-date{
+            opacity: 0.5;
+            }
+
+            .today{
+            background-color: #167e56;
+            }
+
+            *, body{
+            margin: 0;
+            padding: 0;
+              
+        }
+
+        body{
+            background-color: white;
+            font-family: 'Fira Sans', sans-serif;
+            font-size: 1.5rem;
+        }
+
+        .main-menu{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70px;
+            height: 100vh;
+            
+            background-color: #818181;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            /* box-shadow: 0px 0px 20px #d4d4d4; */
+            transition: .3s ease;
+        }
+
+        .main-menu:hover{
+            width: 200px;
+            /* overflow-y: scroll; */
+        }
+
+        .main-menu .menu-item{
+            padding: 10px;
+            color: #d4d4d4;
+        }
+
+        .main-menu .menu-item:hover{
+            background-color: rgb(58, 57, 57);
+            cursor: pointer;
+        }
+
+        .main-menu .menu-item .fa{
+            font-size: 25px;
+            width: 60px;
+            padding: 10px;
+
+        }
+
+        .menu-item:hover >.fa{
+            color: rgb(138, 138, 143);
+        }
+        .addRe button {
+            position: absolute; bottom: 75%;
+            color:rgb(55, 102, 255);
+            background-color: #fff;
+            font-size: 20pt;
+            border: none;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+        .reminder {
+            width: 450px;
+            height: 50px;
+            
+            color: #000;
+            background-color: #167e56;
+            list-style: none;
+            line-height: 30px;
+            margin: 2px auto;
+            position: relative;
+            /* border-radius: 20px; */
+            padding: 10px;
+            display: -webkit-inline-box;
+            box-shadow: rgba(0,0,0,0.15) 1.50px 1.50px 2px;
+        }
+
+        .text {
+            width: 280px;
+            color: #d4d4d4;
+        }
+
+        .btn-check {
+            color: #fff;
+            background-color: rgb(55, 102, 255);
+            border: none;
+            width: 70px;
+            height: 35px;
+            border-radius: 10px;
+        }
+
+        .btn-delete {
+            color: #fff;
+            background-color: red;
+            border: none;
+            width: 60px;
+            height: 35px;
+            margin: 0 5px;
+            border-radius: 10px;
+        }
+        
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="calendar">
+                <div class="mount">
+                    <i class="fas fa-angle-left
+                    prev"></i>
+                    <div class="date">
+                        <h1>November</h1>
+                        <p></p>
+                    </div>
+                    <i class="fas fa-angle-right
+                    next"></i>
+                </div>
+                <div class="weekdays">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+                <div class="days">
+                    <div class="prev-date">27</div>
+                    <div class="prev-date">28</div>
+                    <div class="prev-date">29</div>
+                    <div class="prev-date">30</div>
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div>6</div>
+                    <div>7</div>
+                    <div>8</div>
+                    <div>9</div>
+                    <div>10</div>
+                    <div>11</div>
+                    <div>12</div>
+                    <div>13</div>
+                    <div>14</div>
+                    <div>15</div>
+                    <div>16</div>
+                    <div>17</div>
+                    <div>18</div>
+                    <div>19</div>
+                    <div>20</div>
+                    <div>21</div>
+                    <div>22</div>
+                    <div>23</div>
+                    <div>24</div>
+                    <div>25</div>
+                    <div>26</div>
+                    <div>27</div>
+                    <div>28</div>
+                    <div>29</div>
+                    <div>30</div>
+                    <div class="next-date">1</div>
+                    <div class="next-date">2</div>
+                    <div class="next-date">3</div>
+                    <div class="next-date">4</div>
+                    <div class="next-date">5</div>
+                    <div class="next-date">6</div>
+                    <div class="next-date">7</div>
+                </div>
+                
+        <ul class="list">
+          <!-- Enter a list of reminder -->
+        </ul>
+            </div>
+            <div class="addRe">
+              <button id="newReminder">+</button>
+            </div>
+        </div>
+        <div class="main-menu">
+            <ul>
+                <a href="{{url_for('index_get')}}"><li class="menu-item"><i class="fa fa-soundcloud"></i>Weather</li></a>
+                <a href="#"><li class="menu-item"><i class="fa fa-calendar"></i>Calendar</li></a>
+            </ul>
+        </div>
+        
+      <script>
+      const date = new Date();
+      const renderCalendar = () => {
+          date.setDate(1);
+            
+          const monthDays = document.querySelector(".days");
+            
+          const lastDay = new Date(
+            date.getFullYear(),
+            date.getMonth() + 1,
+            0
+            ).getDate();
+            
+          const prevLastDay = new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            0
+            ).getDate();
+            
+          const firstDayIndex = date.getDay();
+            
+          const lastDayIndex = new Date(
+            date.getFullYear(),
+            date.getMonth() + 1,
+            0
+            ).getDay();
+            
+          const nextDays = 7 - lastDayIndex - 1;
+            
+          const months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ];
+            
+          document.querySelector(".date h1").innerHTML = months[date.getMonth()];
+            
+          document.querySelector(".date p").innerHTML = new Date().toDateString();
+            
+          let days = "";
+            
+          for (let x = firstDayIndex; x > 0; x--) {
+            days += `<div class="prev-date">${prevLastDay - x + 1}</div>`;
+                
+          }
+            
+          for (let i = 1; i <= lastDay; i++) {
+            if (i === new Date().getDate() && date.getMonth() === new Date().getMonth()) {
+                  days += `<div class="today">${i}</div>`;
+                  
+                } else {
+                  days += `<div>${i}</div>`;
+                  
+                }
+              }
+            
+          for (let j = 1; j <= nextDays; j++) {
+            days += `<div class="next-date">${j}</div>`;
+            monthDays.innerHTML = days;
+          }
+        };
+            
+        document.querySelector(".prev").addEventListener("click", () => {
+          date.setMonth(date.getMonth() - 1);
+          renderCalendar();
+        });
+            
+        document.querySelector(".next").addEventListener("click", () => {
+          date.setMonth(date.getMonth() + 1);
+          renderCalendar();
+        });
+
+        renderCalendar();
+
+
+
+
+        const list = document.getElementsByClassName("list")[0];
+        const newReminder = document.getElementById("newReminder");
+
+        // Create reminder function (Template Card)
+        function createReminder(id, message) {
+            // Error handling
+            if (message && message.length > 45) {
+                alert("We only support 45 characters");
+                return;
+            } else if (!message) {
+                alert("Please enter a Reminder");
+                return;
+            }
+            const li = document.createElement("li");
+            li.id = id;
+            li.className = "reminder";
+            const div = document.createElement("div");
+            div.className = "text";
+            div.innerText = message;
+
+            // Actions container
+            const actionContainer = document.createElement("div");
+            actionContainer.className = "actions"
+
+            // Have the check and delete buttons
+            const checkBtn = document.createElement("button");
+            checkBtn.className = "btn-check";
+            checkBtn.innerText = "Checked";
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.className = "btn-delete";
+            deleteBtn.innerText = "Delete";
+
+            // Events handler functions
+            checkBtn.addEventListener("click", function () {
+                if (li.id == id) {
+                    div.style.textDecoration = "line-through";
+                }
+            });
+
+            deleteBtn.addEventListener("click", function () {
+                if (li.id == id) {
+                    list.removeChild(li);
+                }
+            });
+
+            // Append the button for actions
+            actionContainer.appendChild(checkBtn);
+            actionContainer.appendChild(deleteBtn);
+            // Append all the elements in Li
+            li.appendChild(div);
+            li.appendChild(actionContainer);
+
+            return li;
+          }
+          newReminder.addEventListener("click", function () {
+              let message = prompt("Please enter a Reminder");
+              let id = Math.floor(Math.random() * 100);
+              let reminder = createReminder(id, message);
+              list.appendChild(reminder);
+          });
+        </script>
+    </body>
+</html>
