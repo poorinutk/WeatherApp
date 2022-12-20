@@ -1,4 +1,4 @@
-# Flask-Weather-App
+# Weather-App
 
 :partly_sunny::cloud_with_rain::cloud_with_lightning:
 
